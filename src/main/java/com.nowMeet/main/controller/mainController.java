@@ -13,6 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 public class mainController {
     @RequestMapping(value="/main", method = { RequestMethod.GET, RequestMethod.POST})
     public String main(HttpServletRequest request, HttpServletResponse response) {
-        return "/jsp/main/main";
+        return "/main/main";
     }
 }
