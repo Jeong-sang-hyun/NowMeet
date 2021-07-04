@@ -1,40 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xsi:schemaLocation="http://www.springframework.org/schema/mvc
+                             http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                             http://www.springframework.org/schema/beans
+                             http://www.springframework.org/schema/beans/spring-beans.xsd
+                             http://www.springframework.org/schema/context
+                             http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <beans:beans xmlns="http://www.springframework.org/schema/mvc"
-                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xmlns:beans="http://www.springframework.org/schema/beans"
-                 xmlns:context="http://www.springframework.org/schema/context"
-                 xsi:schemaLocation="http://www.springframework.org/schema/mvc
-			 					 http://www.springframework.org/schema/mvc/spring-mvc.xsd
-			 					 http://www.springframework.org/schema/beans
-			 					 http://www.springframework.org/schema/beans/spring-beans.xsd
-			 					 http://www.springframework.org/schema/context
-			 					 http://www.springframework.org/schema/context/spring-context.xsd">
-<!--
-    <beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <beans:property name="locations">
-            <beans:list>
-                <beans:value>classpath:/WEB-INF/config/context.properties</beans:value>
-            </beans:list>
-        </beans:property>
-    </beans:bean>
--->
     <!-- JDBC-MSSQL -->
     <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <beans:property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-        <beans:property name="url" value="jdbc:sqlserver://ms1203.gabiadb.com;databaseName=triptogether" />
+        <beans:property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+        <beans:property name="url" value="jdbc:sqlserver://ms1203.gabiadb.com:1433;databaseName=triptogether" />
         <beans:property name="username" value="triptogether" />
-        <beans:property name="password" value="wlrmaakssk1" />
+        <beans:property name="password" value="wlrmaakssk1!@" />
     </beans:bean>
 
-    <beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <beans:property name="dataSource" ref="dataSource"></beans:property>
+    <beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <beans:property name="dataSource" ref="dataSource" />
+        <beans:property name="mapperLocations" value="classpath:/nowMeet/sqlmap/*.xml" />
     </beans:bean>
 
-    <beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <beans:property name="dataSource" ref="dataSource"></beans:property>
+    <beans:bean id="SqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <beans:constructor-arg index="0" ref="sqlSession"></beans:constructor-arg>
     </beans:bean>
 
-    <beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
-        <beans:constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></beans:constructor-arg>
+    <beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <beans:property name="basenames">
+            <beans:list>
+                <beans:value>classpath:/message/message-common</beans:value>
+                <beans:value>classpath:/egovframework/rte/fdl/idgnr/messages/idgnr</beans:value>
+                <beans:value>classpath:/egovframework/rte/fdl/property/messages/properties</beans:value>
+            </beans:list>
+        </beans:property>
+        <beans:property name="cacheSeconds">
+            <beans:value>60</beans:value>
+        </beans:property>
     </beans:bean>
 </beans:beans>

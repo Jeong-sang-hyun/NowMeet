@@ -13,15 +13,22 @@
     <!-- @Controller 애노테이션 사용 -->
     <annotation-driven/>
 
-    <!-- Component Scan 패키지 설정 -->
-    <context:component-scan base-package="com.nowMeet.main.controller"/>
+    <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+    <resources mapping="/css/**" location="/resources/css/" />
+    <resources mapping="/image/**" location="/resources/image/" />
+    <resources mapping="/js/**" location="/resources/js/" />
+    <resources mapping="/font/**" location="/resources/font/" />
+    <resources mapping="/resources/**" location="/resources/" />
 
     <!-- 뷰 prefix, suffix 설정 -->
     <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <beans:property name="prefix" value="/webapp/jsp/"/>
+        <beans:property name="prefix" value="/jsp/"/>
         <beans:property name="suffix" value=".jsp"/>
     </beans:bean>
 
-    <!-- 정적 리소스 경로 설정 -->
-    <resources mapping="/**" location="/resources/"/>
+    <context:component-scan base-package="com.nowMeet">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 </beans:beans>
