@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="nowMeet.main">
+    <select id="selectBoardList"  resultType="com.nowMeet.main.bean.BoardBean">
+        SELECT
+            BOARD_ID,
+            TITLE,
+            PLACE,
+            MEET_DT,
+            MEET_TIME,
+            NUM_PEOPLE,
+            PEOPLE_POSITION,
+            PEOPLE_POSITION_MALE,
+            PEOPLE_POSITION_FEMALE,
+            USER_ID,
+            REG_DT,
+            UPD_DT
+        FROM NM_BOARD
+        WHERE DEL_YN='N'
+    </select>
+</mapper>
