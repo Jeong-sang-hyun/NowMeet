@@ -15,7 +15,7 @@
         <beans:property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
         <beans:property name="url" value="jdbc:sqlserver://ms1203.gabiadb.com:1433;databaseName=triptogether" />
         <beans:property name="username" value="triptogether" />
-        <beans:property name="password" value="wlrmaakssk1!@" />
+        <beans:property name="password" value="wlrmaakssk1@" />
     </beans:bean>
 
     <beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
